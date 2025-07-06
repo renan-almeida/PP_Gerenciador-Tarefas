@@ -1,6 +1,7 @@
 import { useState } from "react";
 import AddTask from "./components/AddTask";
 import ListTasks from "./components/ListTasks";
+import {v4} from "uuid";
 
 function App() {
   const [tasks, setTasks] = useState([
@@ -44,10 +45,14 @@ function App() {
 
     function onAddTask(title, description) {
       const newTasks = {
-        id: tasks.length + 1,
+        id: v4(),
         title: title,
         description: description,
         isCompleted: false
+      }
+      if (!title.trim() || !description.trim()) {
+        alert("Por favor, preencha todos os campos.");
+        return;
       }
       setTasks([...tasks, newTasks]);
     }
